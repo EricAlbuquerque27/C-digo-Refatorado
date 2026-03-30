@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Refatorado v2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-100 p-10 font-sans">
+
+    <h1 class="text-2xl font-bold mb-8 text-center text-slate-800">Cadastro de Loja (Versão Refatorada)</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- SEÇÃO PRODUTOS -->
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Produtos</h2>
+            <input type="text" id="input-produto" class="border p-2 w-full mb-2" placeholder="Nome do produto">
+            <button id="btn-produto" class="bg-blue-500 text-white p-2 w-full rounded">Adicionar Produto</button>
+            <ul id="lista-produtos" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+
+        <!-- SEÇÃO CLIENTES -->
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Clientes</h2>
+            <input type="text" id="input-cliente" class="border p-2 w-full mb-2" placeholder="Nome do cliente">
+            <button id="btn-cliente" class="bg-green-500 text-white p-2 w-full rounded">Adicionar Cliente</button>
+            <ul id="lista-clientes" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+
+        <!-- SEÇÃO FORNECEDORES -->
+        <div class="bg-white p-6 rounded-xl shadow">
+            <h2 class="font-bold mb-4">Fornecedores</h2>
+            <input type="text" id="input-fornecedor" class="border p-2 w-full mb-2" placeholder="Nome do fornecedor">
+            <button id="btn-fornecedor" class="bg-purple-500 text-white p-2 w-full rounded">Adicionar Fornecedor</button>
+            <ul id="lista-fornecedores" class="mt-4 text-sm text-slate-600"></ul>
+        </div>
+    </div>
+
+    <script>
+        // Arrays para armazenar os dados
+        const produtos = [];
+        const clientes = [];
+        const fornecedores = [];
+
+        /**
+         * Função genérica para adicionar itens a qualquer seção
+         * @param {string} idInput - ID do campo de input
+         * @param {string} idLista - ID da lista (ul) onde os itens serão exibidos
+         * @param {Array} arrayDados - Array que armazena os dados da seção
+         */
+        function adicionarItem(idInput, idLista, arrayDados) {
+            const inputElement = document.querySelector(`#${idInput}`);
+            const listaElement = document.querySelector(`#${idLista}`);
+            const valor = inputElement.value;
+            
+            if (valor !== "" && valor.length > 3) {
+                arrayDados.push(valor);
+                listaElement.innerHTML += `<li>${valor}</li>`;
+                inputElement.value = "";
+            } else {
+                alert("Nome inválido! O nome deve ter pelo menos 3 caracteres.");
+            }
+        }
+
+        // Configuração dos event listeners usando a função genérica
+        document.querySelector('#btn-produto').addEventListener('click', () => {
+            adicionarItem('input-produto', 'lista-produtos', produtos);
+        });
+
+        document.querySelector('#btn-cliente').addEventListener('click', () => {
+            adicionarItem('input-cliente', 'lista-clientes', clientes);
+        });
+
+        document.querySelector('#btn-fornecedor').addEventListener('click', () => {
+            adicionarItem('input-fornecedor', 'lista-fornecedores', fornecedores);
+        });
+    </script>
+</body>
+</html>
